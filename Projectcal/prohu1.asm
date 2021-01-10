@@ -90,12 +90,12 @@ Cont_MUL :
 MOV r_mul, '*'
 MOV edi, -1                                                       ;to make it zero later
 mov ecx, 0
-push eax
-call resetstemp2
-pop eax
+push eax                                                          ;to save value of eax
+call resetstemp2                                                  ;to reset all values of string2
+pop eax                                                           ;return value of eax
 JMP Inc_lbl
 DIV_Cont : 
-lea edx, s_temp2
+lea edx, s_temp2                                                   
 call ParseInteger32
 cmp r_mul, '*'
 JE MUL_RES2
@@ -135,7 +135,7 @@ Cont_F :
 push eax
 call resetstemp2
 pop eax
-ret
+ret                                                                 ;back to the calling function
 step_mul ENDP
 
 step_add PROC
