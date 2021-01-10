@@ -1,3 +1,13 @@
+
+; *************************************************************************************************
+
+; program: Calculator
+; Date:   2 / 1 / 2021 
+; Written by : Nada Gamal, Hala Salah, Norhan Morsal, Nourhan Hussien, Omnia Wahid
+; Description: Taking equation  from userand calculate result
+
+; **************************************************************************************************
+
 .386
 .model flat,stdcall
 .stack 4096
