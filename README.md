@@ -9,5 +9,5 @@
     --This code is built in visual studio  , for 32 bit register.
     
 # Download   
-     To download code , just press on green button with labeled by  code and download it .
+     To download code , just press on green button which labeled by code and download it .
 
