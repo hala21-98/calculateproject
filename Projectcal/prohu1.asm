@@ -202,3 +202,88 @@ cmp r_add, '+'
 JE ADD_RES3
 MOV EAX, mul_result
 SUB add_result, EAX
+
+[6:46 PM, 1/10/2021] Nada Gamal: ADD_RES :
+MOV EAX, mul_result
+ADD add_result, EAX
+Cont_ADD :
+MOV edi, -1
+push eax
+call resetstemp1
+pop eax
+JMP Inc_lbl
+SUB_Cont :
+push esi
+push edi
+push edx
+push ecx
+call step_mul
+pop ecx
+pop edx
+pop edi
+pop esi
+cmp r_add, '+'
+JE ADD_RES2
+MOV EAX, mul_result
+SUB add_result, EAX
+JMP Cont_SUB
+ADD_RES2 :
+MOV EAX, mul_result
+ADD add_result, EAX
+Cont_SUB :
+MOV r_add, '-'
+MOV edi, -1
+push eax
+call resetstemp1
+pop eax
+JMP Inc_lbl
+
+End_Cont : 
+push esi
+push edi
+push edx
+push ecx
+call step_mul
+pop ecx
+pop edx
+pop edi
+pop esi
+cmp r_add, '+'
+JE ADD_RES3
+MOV EAX, mul_result
+SUB add_result, EAX
+[6:51 PM, 1/10/2021] Nada Gamal: JMP Cont_F2                           
+ADD_RES3 :
+MOV EAX, mul_result
+ADD add_result, EAX
+Cont_F2 :
+push eax
+call resetstemp1
+pop eax
+ret
+step_add ENDP
+
+resetstemp1 PROC
+mov eax, 0
+L1:
+cmp eax, A_l + 1
+JG Finish 
+MOV[s_temp1 + eax], 0
+inc eax
+JMP L1
+Finish :
+ret
+resetstemp1 ENDP
+
+resetstemp2 PROC
+mov eax, 0
+L1 :
+	cmp eax, A_l + 1
+	JG Finish
+	MOV[s_temp2 + eax], 0
+	inc eax
+	JMP L1
+	Finish :
+ret
+resetstemp2 ENDP
+END main
