@@ -221,7 +221,7 @@ JE ADD_RES3
 MOV EAX, mul_result
 SUB add_result, EAX
 
-[6:46 PM, 1/10/2021] Nada Gamal: ADD_RES :
+ ADD_RES :
 MOV EAX, mul_result
 ADD add_result, EAX                         
 Cont_ADD :
@@ -270,7 +270,7 @@ cmp r_add, '+'
 JE ADD_RES3
 MOV EAX, mul_result
 SUB add_result, EAX
-[6:51 PM, 1/10/2021] Nada Gamal: JMP Cont_F2                           
+JMP Cont_F2                           
 ADD_RES3 :
 MOV EAX, mul_result
 ADD add_result, EAX
