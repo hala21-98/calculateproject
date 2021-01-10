@@ -156,12 +156,12 @@ inc edi
 JMP L1
 
 ADD_Cont :
-push esi
+push esi                                               ; push all register which we need there valus later 
 push edi
 push edx
 push ecx
 call step_mul
-pop ecx
+pop ecx                                                ; pop all register because we back to function again 
 pop edx
 pop edi
 pop esi
@@ -169,9 +169,9 @@ cmp r_add, '+'
 JE ADD_RES
 MOV EAX, mul_result
 SUB add_result, EAX
-JMP Cont_ADD	
+JMP Cont_ADD	                                       ;  jump without codition (no decrement in ecx ) 
 
-ADD_RES :
+ADD_RES :                   
 MOV EAX, mul_result
 ADD add_result, EAX
 Cont_ADD :
@@ -221,8 +221,9 @@ JE ADD_RES3
 MOV EAX, mul_result
 SUB add_result, EAX
 
+[6:46 PM, 1/10/2021] Nada Gamal: ADD_RES :
 MOV EAX, mul_result
-ADD add_result, EAX
+ADD add_result, EAX                         
 Cont_ADD :
 MOV edi, -1
 push eax
@@ -269,6 +270,7 @@ cmp r_add, '+'
 JE ADD_RES3
 MOV EAX, mul_result
 SUB add_result, EAX
+[6:51 PM, 1/10/2021] Nada Gamal: JMP Cont_F2                           
 ADD_RES3 :
 MOV EAX, mul_result
 ADD add_result, EAX
@@ -294,8 +296,8 @@ resetstemp1 ENDP
 resetstemp2 PROC
 mov eax, 0
 L1 :
-	cmp eax, A_l + 1
-	JG Finish
+	cmp eax, A_l + 1           
+	JG Finish                               ; jump if eax greater than  A_1+1 
 	MOV[s_temp2 + eax], 0
 	inc eax
 	JMP L1
