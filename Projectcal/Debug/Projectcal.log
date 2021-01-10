@@ -1,0 +1,3 @@
+﻿  Assembling prohu1.asm...
+H:\irvine\SmallWin.inc(11): warning A4011: multiple .MODEL directives found : .MODEL ignored
+  Projectcal.vcxproj -> H:\program\visual\Projectcal\Debug\Projectcal.exe
