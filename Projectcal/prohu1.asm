@@ -49,4 +49,54 @@ L1:
 	mov [s_temp2 + edi], bl
 	inc ecx
 	
+	Inc_lbl :
+inc esi
+inc edi
+JMP L1
+
+MUL_Cont : 
+lea edx, s_temp2
+call ParseInteger32
+cmp r_mul, '*'
+JE MUL_RES
+MOV parse_result, EAX
+MOV EAX, mul_result
+mov edx, 0
+IDIV parse_result
+MOV mul_result, EAX
+JMP Cont_MUL
+MUL_RES :
+IMUL EAX, mul_result
+MOV mul_result, EAX
+Cont_MUL : 
+MOV r_mul, '*'
+MOV edi, -1
+mov ecx, 0
+push eax
+call resetstemp2
+pop eax
+JMP Inc_lbl
+DIV_Cont : 
+lea edx, s_temp2
+call ParseInteger32
+cmp r_mul, '*'
+JE MUL_RES2
+MOV parse_result, EAX
+MOV EAX, mul_result
+MOV edx, 0
+IDIV parse_result
+MOV mul_result, EAX
+JMP Cont_DIV
+MUL_RES2 :
+IMUL EAX, mul_result
+MOV mul_result, EAX
+Cont_DIV :
+MOV r_mul, '/'
+MOV edi, -1
+mov ecx, 0
+push eax
+call resetstemp2
+pop eax
+JMP Inc_lbl
+	
 	
