@@ -152,3 +152,53 @@ JE ADD_RES
 MOV EAX, mul_result
 SUB add_result, EAX
 JMP Cont_ADD	
+
+ADD_RES :
+MOV EAX, mul_result
+ADD add_result, EAX
+Cont_ADD :
+MOV edi, -1
+push eax
+call resetstemp1
+pop eax
+JMP Inc_lbl
+SUB_Cont :
+push esi
+push edi
+push edx
+push ecx
+call step_mul
+pop ecx
+pop edx
+pop edi
+pop esi
+cmp r_add, '+'
+JE ADD_RES2
+MOV EAX, mul_result
+SUB add_result, EAX
+JMP Cont_SUB
+ADD_RES2 :
+MOV EAX, mul_result
+ADD add_result, EAX
+Cont_SUB :
+MOV r_add, '-'
+MOV edi, -1
+push eax
+call resetstemp1
+pop eax
+JMP Inc_lbl
+
+End_Cont : 
+push esi
+push edi
+push edx
+push ecx
+call step_mul
+pop ecx
+pop edx
+pop edi
+pop esi
+cmp r_add, '+'
+JE ADD_RES3
+MOV EAX, mul_result
+SUB add_result, EAX
