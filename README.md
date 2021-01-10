@@ -1,4 +1,4 @@
-# Calculate Project 
+# Calculater Project 
 
 # Introduction 
     This calculator support equation for user ta enter whatever operations he need in one line 
