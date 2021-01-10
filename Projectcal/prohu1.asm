@@ -39,7 +39,6 @@ parse_result DWORD 0
 ; at which the input equation is taken
 ;calling functions
 ; .....................................
-
 main PROC 
 lea edx,string_equ 
 mov ecx,A_l+1 
@@ -49,6 +48,9 @@ mov eax, add_result
 call writeint 
 INVOKE ExitProcess,0 
 main ENDP
+
+
+
 
 step_mul PROC
 MOV mul_result, 1 
@@ -68,9 +70,9 @@ L1:
 	inc ecx
 	
 	Inc_lbl :
-inc esi
-inc edi
-JMP L1
+            inc esi
+            inc edi
+	    JMP L1
 
 MUL_Cont : 
 lea edx, s_temp2
@@ -83,6 +85,7 @@ mov edx, 0
 IDIV parse_result
 MOV mul_result, EAX
 JMP Cont_MUL
+
 MUL_RES :
 IMUL EAX, mul_result
 MOV mul_result, EAX
@@ -94,6 +97,7 @@ push eax
 call resetstemp2
 pop eax
 JMP Inc_lbl
+
 DIV_Cont : 
 lea edx, s_temp2
 call ParseInteger32
@@ -105,6 +109,7 @@ MOV edx, 0
 IDIV parse_result
 MOV mul_result, EAX
 JMP Cont_DIV
+
 MUL_RES2 :
 IMUL EAX, mul_result
 MOV mul_result, EAX
@@ -128,9 +133,11 @@ mov edx, 0
 IDIV parse_result
 MOV mul_result, EAX
 JMP Cont_F
+
 MUL_RES3 :
 IMUL EAX, mul_result
 MOV mul_result, EAX
+
 Cont_F :
 push eax
 call resetstemp2
@@ -138,9 +145,12 @@ pop eax
 ret
 step_mul ENDP
 
+
+
 step_add PROC
 xor esi, esi
 xor edi, edi
+
 L1 :
 mov cl, [edx + esi]
 CMP cl, 0
@@ -150,6 +160,7 @@ JE ADD_Cont
 cmp cl, s_sub
 JE SUB_Cont
 mov[s_temp1 + edi], cl
+
 Inc_lbl :
 inc esi
 inc edi
@@ -174,12 +185,14 @@ JMP Cont_ADD
 ADD_RES :
 MOV EAX, mul_result
 ADD add_result, EAX
+
 Cont_ADD :
 MOV edi, -1
 push eax
 call resetstemp1
 pop eax
 JMP Inc_lbl
+
 SUB_Cont :
 push esi
 push edi
@@ -195,9 +208,11 @@ JE ADD_RES2
 MOV EAX, mul_result
 SUB add_result, EAX
 JMP Cont_SUB
+
 ADD_RES2 :
 MOV EAX, mul_result
 ADD add_result, EAX
+
 Cont_SUB :
 MOV r_add, '-'
 MOV edi, -1
@@ -221,15 +236,17 @@ JE ADD_RES3
 MOV EAX, mul_result
 SUB add_result, EAX
 
-[6:46 PM, 1/10/2021] Nada Gamal: ADD_RES :
+ADD_RES :
 MOV EAX, mul_result
 ADD add_result, EAX
+
 Cont_ADD :
 MOV edi, -1
 push eax
 call resetstemp1
 pop eax
 JMP Inc_lbl
+
 SUB_Cont :
 push esi
 push edi
@@ -245,9 +262,11 @@ JE ADD_RES2
 MOV EAX, mul_result
 SUB add_result, EAX
 JMP Cont_SUB
+
 ADD_RES2 :
 MOV EAX, mul_result
 ADD add_result, EAX
+
 Cont_SUB :
 MOV r_add, '-'
 MOV edi, -1
@@ -270,7 +289,8 @@ cmp r_add, '+'
 JE ADD_RES3
 MOV EAX, mul_result
 SUB add_result, EAX
-[6:51 PM, 1/10/2021] Nada Gamal: JMP Cont_F2                           
+JMP Cont_F2  
+
 ADD_RES3 :
 MOV EAX, mul_result
 ADD add_result, EAX
@@ -280,6 +300,8 @@ call resetstemp1
 pop eax
 ret
 step_add ENDP
+
+
 
 resetstemp1 PROC
 mov eax, 0
@@ -292,6 +314,8 @@ JMP L1
 Finish :
 ret
 resetstemp1 ENDP
+
+
 
 resetstemp2 PROC
 mov eax, 0
