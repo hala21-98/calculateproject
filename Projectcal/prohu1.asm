@@ -1,7 +1,7 @@
 
 ; *************************************************************************************************
 
-; program: Calculator
+; Proiect : Calculator
 ; Date:   2 / 1 / 2021 
 ; Written by : Nada Gamal, Hala Salah, Norhan Morsal, Nourhan Hussien, Omnia Wahid
 ; Description: Taking equation from user and calculate result
@@ -17,6 +17,7 @@ atoi PROTO C strptr:DWORD
 include irvine32.inc
 
 .data
+
 A_l=100                                                         ;Array length
 string_equ BYTE A_l+1 DUP(?), 0                                 ; string input equation
 s_temp1 BYTE A_l+1 DUP(?), 0                                    ; temporary use 
@@ -33,13 +34,11 @@ parse_result DWORD 0
 
 .code
 
-
-; ....................................
-; main function
-; at which the input equation is taken
+; .........................................................
+; function name : main 
+; descreption : at which the input equation is taken
 ; calling functions
-; .....................................
-
+; ...........................................................
 main PROC                                                        ; start function
 lea edx,string_equ                                               ; Loads EDX with the offset address of string_equ
 mov ecx,A_l+1                                                    ; ecx = A_l+1
@@ -50,6 +49,12 @@ call writeint
 INVOKE ExitProcess,0                                             ; end function
 main ENDP
 
+
+
+
+; .....................................................
+; function name : step_mul
+; .....................................................
 step_mul PROC
 MOV mul_result, 1 
 xor esi, esi                                                      ; will always set esi to zero , more effecient
@@ -115,8 +120,7 @@ mov ecx, 0
 push eax
 call resetstemp2
 pop eax
-JMP Inc_lbl
-	
+JMP Inc_lbl	
 End_Cont :
 lea edx, s_temp2
 call ParseInteger32
@@ -138,22 +142,28 @@ pop eax
 ret                                                                 ;back to the calling function
 step_mul ENDP
 
+
+
+
+; .....................................................
+; function name : step_add
+; .....................................................
 step_add PROC
 xor esi, esi
 xor edi, edi
 L1 :
-mov cl, [edx + esi]
-CMP cl, 0
-JE End_Cont
-cmp cl, s_add
-JE ADD_Cont
-cmp cl, s_sub
-JE SUB_Cont
-mov[s_temp1 + edi], cl
-Inc_lbl :
-inc esi
-inc edi
-JMP L1
+  mov cl, [edx + esi]
+  CMP cl, 0
+  JE End_Cont
+  cmp cl, s_add
+  JE ADD_Cont
+  cmp cl, s_sub
+  JE SUB_Cont
+  mov[s_temp1 + edi], cl
+  Inc_lbl :
+  inc esi
+  inc edi
+  JMP L1
 
 ADD_Cont :
 push esi                                               ; push all register which we need there valus later 
@@ -169,8 +179,7 @@ cmp r_add, '+'
 JE ADD_RES
 MOV EAX, mul_result
 SUB add_result, EAX
-JMP Cont_ADD	                                       ;  jump without codition (no decrement in ecx ) 
-
+JMP Cont_ADD	                                       ;  jump without codition 
 ADD_RES :                   
 MOV EAX, mul_result
 ADD add_result, EAX
@@ -205,7 +214,6 @@ push eax
 call resetstemp1
 pop eax
 JMP Inc_lbl
-
 End_Cont : 
 push esi
 push edi
@@ -220,8 +228,7 @@ cmp r_add, '+'
 JE ADD_RES3
 MOV EAX, mul_result
 SUB add_result, EAX
-
- ADD_RES :
+ADD_RES :
 MOV EAX, mul_result
 ADD add_result, EAX                         
 Cont_ADD :
@@ -255,7 +262,6 @@ push eax
 call resetstemp1
 pop eax
 JMP Inc_lbl
-
 End_Cont : 
 push esi
 push edi
@@ -281,12 +287,14 @@ pop eax
 ret
 step_add ENDP
 
-;.........................................
-;Resetstemp1 function 
-;it reset all values in array 
-;for using it again 
-;.........................................
 
+
+
+;..................................................
+;function name : resetstemp1 
+;description : it reset all values in array 
+;for using it again 
+;...................................................
 resetstemp1 PROC
 mov eax, 0
 L1:
@@ -299,12 +307,14 @@ Finish :
 ret
 resetstemp1 ENDP
 
+
+
+
 ;.........................................
-;Resetstemp2 function 
+;function name : resetstemp2
 ;it reset all values in array 
 ;for using it again 
 ;.........................................
-
 resetstemp2 PROC
 mov eax, 0
 L1 :
