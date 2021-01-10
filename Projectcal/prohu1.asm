@@ -32,6 +32,16 @@ mul_result DWORD 1
 parse_result DWORD 0 
 
 .code
+
+; ....................................
+
+; main function
+; at which the input equation is taken
+;calling functions
+; 
+
+; .....................................
+
 main PROC 
 lea edx,string_equ 
 mov ecx,A_l+1 
