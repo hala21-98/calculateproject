@@ -33,13 +33,11 @@ parse_result DWORD 0
 
 .code
 
-; ....................................
 
+; ....................................
 ; main function
 ; at which the input equation is taken
 ;calling functions
-; 
-
 ; .....................................
 
 main PROC 
