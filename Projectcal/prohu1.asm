@@ -281,6 +281,12 @@ pop eax
 ret
 step_add ENDP
 
+;.........................................
+;Resetstemp1 function 
+;it reset all values in array 
+;for using it again 
+;.........................................
+
 resetstemp1 PROC
 mov eax, 0
 L1:
@@ -292,6 +298,12 @@ JMP L1
 Finish :
 ret
 resetstemp1 ENDP
+
+;.........................................
+;Resetstemp2 function 
+;it reset all values in array 
+;for using it again 
+;.........................................
 
 resetstemp2 PROC
 mov eax, 0
