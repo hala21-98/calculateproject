@@ -4,7 +4,7 @@
 ; program: Calculator
 ; Date:   2 / 1 / 2021 
 ; Written by : Nada Gamal, Hala Salah, Norhan Morsal, Nourhan Hussien, Omnia Wahid
-; Description: Taking equation  from userand calculate result
+; Description: Taking equation from user and calculate result
 
 ; **************************************************************************************************
 
@@ -18,16 +18,16 @@ include irvine32.inc
 
 .data
 A_l=100 ;Array length
-string_equ BYTE A_l+1 DUP(?), 0 
-s_temp1 BYTE A_l+1 DUP(?), 0  
+string_equ BYTE A_l+1 DUP(?), 0                                 ; string input equation
+s_temp1 BYTE A_l+1 DUP(?), 0                                    ; temporary use 
 s_temp2 BYTE A_l+1 DUP(?), 0
-s_add BYTE '+' 
+s_add BYTE '+'                                                  ; creat a byte memory loction and store char+
 s_sub BYTE '-'
 s_mul BYTE '*'
 s_div BYTE '/'
 r_add BYTE '+'
 r_mul BYTE '*'
-add_result DWORD 0 
+add_result DWORD 0                                              ; creat a double word memory loction and set 0 in it
 mul_result DWORD 1
 parse_result DWORD 0 
 
@@ -37,20 +37,18 @@ parse_result DWORD 0
 ; ....................................
 ; main function
 ; at which the input equation is taken
-;calling functions
+; calling functions
 ; .....................................
-main PROC 
-lea edx,string_equ 
-mov ecx,A_l+1 
-call ReadString 
+
+main PROC                                                        ; start function
+lea edx,string_equ                                               ; Loads EDX with the offset address of string_equ
+mov ecx,A_l+1                                                    ; ecx = A_l+1
+call ReadString                                                  ; call function
 call step_add	
-mov eax, add_result 
+mov eax, add_result                                              ; eax = add_result
 call writeint 
-INVOKE ExitProcess,0 
+INVOKE ExitProcess,0                                             ; end function
 main ENDP
-
-
-
 
 step_mul PROC
 MOV mul_result, 1 
@@ -70,9 +68,9 @@ L1:
 	inc ecx
 	
 	Inc_lbl :
-            inc esi
-            inc edi
-	    JMP L1
+inc esi
+inc edi
+JMP L1
 
 MUL_Cont : 
 lea edx, s_temp2
@@ -85,7 +83,6 @@ mov edx, 0
 IDIV parse_result
 MOV mul_result, EAX
 JMP Cont_MUL
-
 MUL_RES :
 IMUL EAX, mul_result
 MOV mul_result, EAX
@@ -97,7 +94,6 @@ push eax
 call resetstemp2
 pop eax
 JMP Inc_lbl
-
 DIV_Cont : 
 lea edx, s_temp2
 call ParseInteger32
@@ -109,7 +105,6 @@ MOV edx, 0
 IDIV parse_result
 MOV mul_result, EAX
 JMP Cont_DIV
-
 MUL_RES2 :
 IMUL EAX, mul_result
 MOV mul_result, EAX
@@ -133,11 +128,9 @@ mov edx, 0
 IDIV parse_result
 MOV mul_result, EAX
 JMP Cont_F
-
 MUL_RES3 :
 IMUL EAX, mul_result
 MOV mul_result, EAX
-
 Cont_F :
 push eax
 call resetstemp2
@@ -145,12 +138,9 @@ pop eax
 ret
 step_mul ENDP
 
-
-
 step_add PROC
 xor esi, esi
 xor edi, edi
-
 L1 :
 mov cl, [edx + esi]
 CMP cl, 0
@@ -160,7 +150,6 @@ JE ADD_Cont
 cmp cl, s_sub
 JE SUB_Cont
 mov[s_temp1 + edi], cl
-
 Inc_lbl :
 inc esi
 inc edi
@@ -185,14 +174,12 @@ JMP Cont_ADD
 ADD_RES :
 MOV EAX, mul_result
 ADD add_result, EAX
-
 Cont_ADD :
 MOV edi, -1
 push eax
 call resetstemp1
 pop eax
 JMP Inc_lbl
-
 SUB_Cont :
 push esi
 push edi
@@ -208,11 +195,9 @@ JE ADD_RES2
 MOV EAX, mul_result
 SUB add_result, EAX
 JMP Cont_SUB
-
 ADD_RES2 :
 MOV EAX, mul_result
 ADD add_result, EAX
-
 Cont_SUB :
 MOV r_add, '-'
 MOV edi, -1
@@ -236,17 +221,15 @@ JE ADD_RES3
 MOV EAX, mul_result
 SUB add_result, EAX
 
-ADD_RES :
+[6:46 PM, 1/10/2021] Nada Gamal: ADD_RES :
 MOV EAX, mul_result
 ADD add_result, EAX
-
 Cont_ADD :
 MOV edi, -1
 push eax
 call resetstemp1
 pop eax
 JMP Inc_lbl
-
 SUB_Cont :
 push esi
 push edi
@@ -262,11 +245,9 @@ JE ADD_RES2
 MOV EAX, mul_result
 SUB add_result, EAX
 JMP Cont_SUB
-
 ADD_RES2 :
 MOV EAX, mul_result
 ADD add_result, EAX
-
 Cont_SUB :
 MOV r_add, '-'
 MOV edi, -1
@@ -289,8 +270,7 @@ cmp r_add, '+'
 JE ADD_RES3
 MOV EAX, mul_result
 SUB add_result, EAX
-JMP Cont_F2  
-
+[6:51 PM, 1/10/2021] Nada Gamal: JMP Cont_F2                           
 ADD_RES3 :
 MOV EAX, mul_result
 ADD add_result, EAX
@@ -300,8 +280,6 @@ call resetstemp1
 pop eax
 ret
 step_add ENDP
-
-
 
 resetstemp1 PROC
 mov eax, 0
@@ -314,8 +292,6 @@ JMP L1
 Finish :
 ret
 resetstemp1 ENDP
-
-
 
 resetstemp2 PROC
 mov eax, 0
