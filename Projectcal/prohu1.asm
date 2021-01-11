@@ -3,7 +3,7 @@
 
 ; Proiect : Calculator
 ; Date:   2 / 1 / 2021 
-; Written by : Nada Gamal, Hala Salah, Norhan Morsal, Nourhan Hussien, Omnia Wahid
+; Written by : Nada Gamal, Hala Salah, Norhan Morsal, Norhan Hussien, Omnia Wahid
 ; Description: Taking equation from user and calculate result
 
 ; **************************************************************************************************
@@ -149,7 +149,7 @@ step_mul ENDP
 ; function name : step_add
 ; .....................................................
 step_add PROC
-xor esi, esi
+xor esi, esi                                                                 ; will always set esi to zero
 xor edi, edi
 L1 :
   mov cl, [edx + esi]
@@ -298,7 +298,7 @@ step_add ENDP
 resetstemp1 PROC
 mov eax, 0
 L1:
-cmp eax, A_l + 1
+cmp eax, A_l + 1                                                                    ;if eax > A_l + 1
 JG Finish 
 MOV[s_temp1 + eax], 0
 inc eax
