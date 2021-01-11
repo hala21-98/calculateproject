@@ -46,8 +46,8 @@ call ReadString                                                  ; call function
 call step_add	
 mov eax, add_result                                              ; eax = add_result
 call writeint 
-INVOKE ExitProcess,0                                             ; end function
-main ENDP
+INVOKE ExitProcess,0                                                ; end the program                                            
+main ENDP                                                          ; end function
 
 
 
@@ -96,7 +96,7 @@ MOV r_mul, '*'
 MOV edi, -1                                                       ;to make it zero later
 mov ecx, 0
 push eax                                                          ;to save value of eax
-call resetstemp2                                                  ;to reset all values of string2
+call resetstemp2                                                  ;to reset all values of s_temp2
 pop eax                                                           ;return value of eax
 JMP Inc_lbl
 DIV_Cont : 
